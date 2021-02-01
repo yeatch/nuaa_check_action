@@ -6,12 +6,14 @@ import sys
 import time
 import traceback
 import requests
+import random
 from send_mail import send_mail
 # from requests_toolbelt.utils import dump
 
 try_times = 1   # 失败这么多次后就直接不管了
 delay = 2   # 访问页面前的延迟，为了防止过快访问网站被封IP
-
+uuid = random.randint(10000000,99999999) # 总是获取不到我也没办法
+idid = random.randint(1000,9999) # 总是获取不到我也没办法
 
 # 登陆并且返回json形式的cookie，如果登陆失败返回空串
 # 先访问/uc/wap/login，获得eai-sess，然后带着她访问/uc/wap/login/check，获得UUkey
@@ -111,8 +113,8 @@ def get_uid_id(cookies):
             response = requests.get(
                 'https://m.nuaa.edu.cn/ncov/wap/default', cookies=cookies)
             response.encoding = 'utf-8'
-            uid = re.search(r'"uid":"([0-9]*)"', response.text).group(1)
-            id = re.search(r'"id":([0-9]*)', response.text).group(1)
+            uid = uuid
+            id = idid
             return uid,id, 'UID获取成功\n'
         except:
             traceback.print_exc()
